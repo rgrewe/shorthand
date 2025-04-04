@@ -1,4 +1,4 @@
-module github.com/danielgtaylor/shorthand/v2
+module github.com/rgrewe/shorthand/v2
 
 go 1.18
 
