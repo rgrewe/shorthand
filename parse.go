@@ -110,6 +110,15 @@ func (d *Document) back() {
 	d.pos -= d.lastWidth
 }
 
+// before returns the previous rune without moving the position backward.
+func (d *Document) before() rune {
+	if d.pos < 2 {
+		return -1
+	}
+
+	return rune(d.expression[d.pos-2])
+}
+
 // peek returns the next rune without moving the position forward.
 func (d *Document) peek() rune {
 	if d.pos >= uint(len(d.expression)) {
@@ -156,6 +165,10 @@ func (d *Document) skipWhitespace() {
 
 func (d *Document) skipComments(r rune) bool {
 	if r == '/' && d.peek() == '/' {
+		if d.before() == ':'{
+			d.next()
+			return false
+		}
 		for {
 			r = d.next()
 			if r == -1 || r == '\n' {
